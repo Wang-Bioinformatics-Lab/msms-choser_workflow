@@ -1,6 +1,6 @@
-workflowname: template_nextflow_workflow
-workflowdescription: template_nextflow_workflow
-workflowlongdescription: This is a template nextflow workflow for GNPS2
+workflowname: msms-choser_nextflow_workflow
+workflowdescription: msms-choser_nextflow_workflow
+workflowlongdescription: This is the workflow to run msms-choser from nextflow. The input of msms-choser is a tsv with the potential annotations and their spectrum libraries
 workflowversion: "0.1"
 workflowfile: nf_workflow.nf
 workflowautohide: false
@@ -12,10 +12,20 @@ parameterlist:
 
     - displayname: Input Data Folder
       paramtype: fileselector
-      nf_paramname: input_spectra_folder
-      formplaceholder: Enter the path to data
+      nf_paramname: input_annotations folder
+      formplaceholder: Enter the path of the annotations file
       formvalue: ""
-      targettaskfolder: input_spectra
+      targettaskfolder: input_annotations
+      optional: false
+      selectsinglefile: false
+      folderunroll: true
+
+    - displayname: Input Data Folder
+      paramtype: fileselector
+      nf_paramname: xml files compressed
+      formplaceholder: Enter the path of the xml files
+      formvalue: ""
+      targettaskfolder: input_xml
       optional: false
       selectsinglefile: false
       folderunroll: true

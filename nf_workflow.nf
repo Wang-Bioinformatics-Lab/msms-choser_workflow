@@ -1,6 +1,9 @@
-#!/usr/bin/env nextflow
+nextflow.enable.dsl=2
 
-params.input = "README.md"
+params.annotations = "data/annotations.tsv"
+params.xmlpath = "data/"
+params.publishdir = "./nf_output"
+
 
 // Workflow Boiler Plate
 params.OMETALINKING_YAML = "flow_filelinking.yaml"
@@ -8,18 +11,27 @@ params.OMETAPARAM_YAML = "job_parameters.yaml"
 
 TOOL_FOLDER = "$baseDir/bin"
 
-process processData {
-    publishDir "./nf_output", mode: 'copy'
-
-    conda "$TOOL_FOLDER/conda_env.yml"
+process processCandidates {
+    publishDir "$params.publishdir", mode: 'copy', overwrite: false
 
     input:
-    file input from Channel.fromPath(params.input)
+    path annotations, name: params.annotations
+    path xmlpath, name: params.xmlpath
+    
+    
 
     output:
-    file 'output.tsv' into records_ch
+    path "batchfile.tsv"
 
     """
-    python $TOOL_FOLDER/script.py $input output.tsv
+    python $TOOL_FOLDER/prepare_library_addtions_gnps_collections.py $annotations $xmlpath batchfile.tsv
     """
+}
+
+
+
+workflow{
+    ch1 = Channel.fromPath(params.annotations) 
+    ch2 = Channel.fromPath(params.xmlpath) 
+    processCandidates(ch1,ch2)
 }
