@@ -3,10 +3,10 @@
 To test the workflow simply do
 
 ```
-make run [-e input_file=<input_file>]
+make run [-e --annotations=<annotations_file> --xmlpath=<xmlpath)>]
 ```
 
-If you do not specify an input file, by default it will take the sample file located in data/test_input.tsv
+If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra.
 
 To learn NextFlow checkout this documentation:
 
@@ -28,5 +28,20 @@ In case you wish to set your parameters directly in nextflow, please use the nex
 
 
 ```
-nextflow [options] ./nf_workflow.nf [--input="$(input_file)"] [additional args...]
+nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" [additional args...]
+```
+
+## Run in a conda environment
+
+To run the workflow in a conda environment, there is a configuration file [conda_env.yml](bin/conda_env.yml). This file configured the environment named msms-choser-env. It can be created and activated by:
+
+```
+conda env create -f bin/conda_env.yml
+conda activate msms-choser-env
+```
+
+and then the workflow can be executed from the conda environment. If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra.
+
+```
+nextflow [options] ./nf_workflow.nf [--annotations="$(annotations_file)" --xmlpath="$(xmlpath)"] [additional args...]
 ```
