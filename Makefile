@@ -1,6 +1,9 @@
 annotations_file=data/annotations.tsv
 xmlpath=data/
 
+clean:
+	rm -Rf .nextflow* work bin/__pycache__
+
 run:
 	nextflow run ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" --resume 
 
