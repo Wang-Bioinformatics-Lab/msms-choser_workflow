@@ -1,7 +1,7 @@
 nextflow.enable.dsl=2
 
 params.annotations = "data/annotations.tsv"
-params.xmlpath = "data/"
+params.spectra = "data/"
 params.publishdir = "./nf_output"
 
 
@@ -16,22 +16,19 @@ process processCandidates {
 
     input:
     path annotations, name: params.annotations
-    path xmlpath, name: params.xmlpath
+    path spectra, name: params.spectra
     
-    
-
     output:
     path "batchfile.tsv"
 
     """
-    python $TOOL_FOLDER/prepare_library_addtions_gnps_collections.py $annotations $xmlpath batchfile.tsv
+    python $TOOL_FOLDER/prepare_library_addtions_gnps_collections.py $annotations $spectra batchfile.tsv
     """
 }
 
 
-
 workflow{
     ch1 = Channel.fromPath(params.annotations) 
-    ch2 = Channel.fromPath(params.xmlpath) 
+    ch2 = Channel.fromPath(params.spectra) 
     processCandidates(ch1,ch2)
 }

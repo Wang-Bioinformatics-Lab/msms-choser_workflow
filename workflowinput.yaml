@@ -1,5 +1,5 @@
-workflowname: msms-choser_nextflow_workflow
-workflowdescription: msms-choser_nextflow_workflow
+workflowname: msms_choser_nextflow_workflow
+workflowdescription: msms_choser_nextflow_workflow
 workflowlongdescription: This is the workflow to run msms-choser from nextflow. The input of msms-choser is a tsv with the potential annotations and their spectrum libraries
 workflowversion: "0.1"
 workflowfile: nf_workflow.nf
@@ -12,20 +12,20 @@ parameterlist:
 
     - displayname: Input Data Folder
       paramtype: fileselector
-      nf_paramname: input_annotations folder
+      nf_paramname: annotations
       formplaceholder: Enter the path of the annotations file
       formvalue: ""
-      targettaskfolder: input_annotations
-      optional: false
-      selectsinglefile: false
+      targettaskfolder: annotations
+      optional: true
+      selectsinglefile: true
       folderunroll: true
 
     - displayname: Input Data Folder
       paramtype: fileselector
-      nf_paramname: xml files compressed
-      formplaceholder: Enter the path of the xml files
+      nf_paramname: spectra
+      formplaceholder: Enter the path of the spectra files
       formvalue: ""
-      targettaskfolder: input_xml
+      targettaskfolder: spectra
       optional: false
       selectsinglefile: false
       folderunroll: true

@@ -1,22 +1,15 @@
-name: NP-Classifier_nextflow_workflow
-displayname: NP-Classifier
+name: msms_choser_nextflow_workflow
+displayname: msms_choser_nextflow_workflow
 Views:
 -   name: Summary List
     displayname: Summary List
     viewname: summarylist
     displaytype: datatable
     parameters:
-
-FILENAME    SEQ COMPOUND_NAME   MOLECULEMASS    INSTRUMENT  IONSOURCE   EXTRACTSCAN SMILES  INCHI   INCHIAUX    CHARGE  IONMODE PUBMED  ACQUISITION EXACTMASS   DATACOLLECTOR   ADDUCT  INTEREST    LIBQUALITY  GENUS   SPECIES STRAIN  CASNUMBER   PI
-        
-        filename: output/batchfile.tsv
+        filename: nf_output/batchfile.tsv
         columns:
             -   title: "FILENAME"
-                data: filename
-            -   title: "SEQ"
-                data: filename
-        columnDefs: '[ {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
-            return `
-            <a target="_blank" href="/dashboards/lcms?usi=mzspec:GNPS2-${task}:${encodeURIComponent(row["filename"])}">View LCMS - mzspec:GNPS2-${task}:${row["filename"]}</a>
-            `;}}]'
+                data: FILENAME
+            -   title: "MOLECULEMASS"
+                data: MOLECULEMASS
             
