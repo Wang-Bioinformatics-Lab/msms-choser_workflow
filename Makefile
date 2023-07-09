@@ -5,8 +5,11 @@ clean:
 	rm -Rf .nextflow* work bin/__pycache__
 
 run:
-	nextflow run ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" --resume 
+	nextflow run ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" --resume -c nextflow.config
 
-# The tasks for the NP-Classifier are performed using small python scripts and web services requests, therefore a docker instance does not make sense
-#run_docker:
-#	nextflow run ./nf_workflow.nf --resume -with-docker <CONTAINER NAME>
+run_hpcc:
+	nextflow run ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" --resume -c nextflow_hpcc.config
+
+# 
+run_docker:
+	nextflow run ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" --resume -with-docker <CONTAINER NAME>
