@@ -3,10 +3,10 @@
 To test the workflow simply do
 
 ```
-make run [-e --annotations=<annotations_file> --xmlpath=<xmlpath)>]
+make run [-e --annotations=<annotations_file> --xmlpath=<xmlpath)> --ppm_tolerance=<ppm_tolerance>]
 ```
 
-If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra.
+If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra. The default ppm_tolerance is 10.0
 
 To learn NextFlow checkout this documentation:
 
@@ -28,7 +28,7 @@ In case you wish to set your parameters directly in nextflow, please use the nex
 
 
 ```
-nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --xmlpath="$(xmlpath)" [additional args...]
+nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --path_to_spectra="$(path_to_spectra)" --ppm_tolerance=$(ppm_tolerance) --resume -c nextflow.config
 ```
 
 ## Run in a conda environment
@@ -43,5 +43,5 @@ conda activate msms-choser-env
 and then the workflow can be executed from the conda environment. If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra.
 
 ```
-nextflow [options] ./nf_workflow.nf [--annotations="$(annotations_file)" --xmlpath="$(xmlpath)"] [additional args...]
+nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --path_to_spectra="$(path_to_spectra)" --ppm_tolerance=$(ppm_tolerance) --resume -c nextflow.config
 ```

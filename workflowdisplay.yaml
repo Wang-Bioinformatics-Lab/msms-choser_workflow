@@ -1,15 +1,23 @@
 name: msms_choser_nextflow_workflow
 displayname: msms_choser_nextflow_workflow
 Views:
--   name: Summary List
-    displayname: Summary List
-    viewname: summarylist
+-   name: MSMS choser results list
+    displayname: MSMS choser results list
+    viewname: msmschoserresultslist
     displaytype: datatable
     parameters:
         filename: nf_output/batchfile.tsv
         columns:
-            -   title: "FILENAME"
-                data: FILENAME
-            -   title: "MOLECULEMASS"
+            -   title: "filename"
+                data: filename
+            -   title: "Molecule mass"
                 data: MOLECULEMASS
+            -   title: "Compound name"
+                data: COMPOUND_NAME
+            -   title: "SMILES"
+                data: SMILES
+            -   title: "Ion mode"
+                data: IONMODE
+            -   title: "Adduct"
+                data: ADDUCT
             

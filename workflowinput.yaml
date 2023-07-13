@@ -10,17 +10,17 @@ parameterlist:
     - displayname: File Selection
       paramtype: section
 
-    - displayname: Input Data Folder
+    - displayname: Annotations file
       paramtype: fileselector
       nf_paramname: annotations
       formplaceholder: Enter the path of the annotations file
       formvalue: ""
       targettaskfolder: annotations
-      optional: true
+      optional: false
       selectsinglefile: true
-      folderunroll: true
+      folderunroll: false
 
-    - displayname: Input Data Folder
+    - displayname: Spectra files path
       paramtype: fileselector
       nf_paramname: spectra
       formplaceholder: Enter the path of the spectra files
@@ -29,3 +29,15 @@ parameterlist:
       optional: false
       selectsinglefile: false
       folderunroll: true
+
+    - displayname: Chooser Parameters
+    paramtype: section
+
+    - displayname: precursor ppm tolerance
+      paramtype: text
+      nf_paramname: precursor_mass_tolerance
+      formplaceholder: Enter the Precursor Ion Tolerance
+      formvalue: "10.0"
+      tooltip: "Precursor ion tolerance"
+
+    
