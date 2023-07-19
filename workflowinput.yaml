@@ -22,7 +22,7 @@ parameterlist:
 
     - displayname: Spectra files path
       paramtype: fileselector
-      nf_paramname: spectra
+      nf_paramname: path_to_spectra
       formplaceholder: Enter the path of the spectra files
       formvalue: ""
       targettaskfolder: spectra
