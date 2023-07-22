@@ -13,7 +13,7 @@ TOOL_FOLDER = "$baseDir/bin"
 
 process processCandidates {
     publishDir "$params.publishdir", mode: 'copy', overwrite: false
-
+    conda "$TOOL_FOLDER/conda_env.yml"
     input:
     path annotations, name: params.annotations
     path path_to_spectra, name: params.path_to_spectra
