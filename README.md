@@ -8,6 +8,8 @@ make run [-e --annotations=<annotations_file> --xmlpath=<xmlpath)> --ppm_toleran
 
 If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra. The default ppm_tolerance is 10.0
 
+Please visit the [GNPS documentation](https://ccms-ucsd.github.io/GNPSDocumentation/toolindex/) for more information about msms-choser. 
+
 To learn NextFlow checkout this documentation:
 
 https://www.nextflow.io/docs/latest/index.html

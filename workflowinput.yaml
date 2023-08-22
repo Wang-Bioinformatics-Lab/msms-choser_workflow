@@ -1,6 +1,6 @@
 workflowname: msms_choser_nextflow_workflow
 workflowdescription: msms_choser_nextflow_workflow
-workflowlongdescription: This is the workflow to run msms-choser from nextflow. The input of msms-choser is a tsv with the potential annotations and their spectrum libraries
+workflowlongdescription: This is the workflow to run msms-choser from nextflow. The input of msms-choser is a tsv with the potential annotations and their spectrum libraries. Please visit the GNPS documentation  at https://ccms-ucsd.github.io/GNPSDocumentation/toolindex/ for more information.
 workflowversion: "0.1"
 workflowfile: nf_workflow.nf
 workflowautohide: false
