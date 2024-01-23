@@ -24,7 +24,7 @@ process processCandidates {
     path "batchfile.tsv"
 
     """
-
+    which python
     python $TOOL_FOLDER/prepare_library_addtions_gnps_collections.py \
     $annotations $path_to_spectra \
     batchfile.tsv \

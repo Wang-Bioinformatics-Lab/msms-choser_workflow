@@ -1,23 +1,36 @@
 name: msms_choser_nextflow_workflow
 displayname: msms_choser_nextflow_workflow
 Views:
--   name: MSMS choser results list
-    displayname: MSMS choser results list
+-   name: MSMS chooser results list
+    displayname: MSMS chooser results list
     viewname: msmschoserresultslist
     displaytype: datatable
     parameters:
         filename: nf_output/batchfile.tsv
         columns:
+            -   title: "View"
+                data: ""
             -   title: "filename"
-                data: filename
+                data: FILENAME
             -   title: "Molecule mass"
                 data: MOLECULEMASS
             -   title: "Compound name"
                 data: COMPOUND_NAME
-            -   title: "SMILES"
-                data: SMILES
+            -   title: "Scan"
+                data: EXTRACTSCAN
             -   title: "Ion mode"
                 data: IONMODE
             -   title: "Adduct"
                 data: ADDUCT
-            
+            -   title: "SMILES"
+                data: SMILES
+        columnDefs: '[ 
+            {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-spectra/${row["FILENAME"]}:scan:${row["#Scan#"]}&usi2=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}">View Mirror</a>
+        `;}},
+        {"targets": 7,"data": null,"render": function ( data, type, row, meta ) {
+        return `
+            <img src="https://structure.gnps2.org/structureimg?smiles=${row["SMILES"]}"/>
+        `;}},
+        ]'

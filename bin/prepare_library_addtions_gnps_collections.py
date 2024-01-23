@@ -117,6 +117,7 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
                 output_dict["STRAIN"].append("N/A")
                 output_dict["CASNUMBER"].append(structure_object["casnumber"])
                 output_dict["PI"].append(structure_object["pi"])
+                
                 #print(spectrum.mz, monoisotopic_mass, ppm_delta, filename, structure_object["exact_mass"],structure_object["adduct"])
                 #print("Found ", structure_object["name"],structure_object["adduct"], highest_intensity)
             else:
