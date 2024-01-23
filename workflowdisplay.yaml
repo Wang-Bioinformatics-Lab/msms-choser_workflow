@@ -27,7 +27,7 @@ Views:
         columnDefs: '[ 
             {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
         return `
-            <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-spectra/${row["FILENAME"]}:scan:${row["#Scan#"]}&usi2=mzspec:GNPS:GNPS-LIBRARY:accession:${row["SpectrumID"]}">View Mirror</a>
+            <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-spectra/${row["FILENAME"]}:scan:${row["EXTRACTSCAN"]}">View Spectrum</a>
         `;}},
         {"targets": 7,"data": null,"render": function ( data, type, row, meta ) {
         return `
