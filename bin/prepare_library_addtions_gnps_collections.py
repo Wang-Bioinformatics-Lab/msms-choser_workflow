@@ -8,10 +8,12 @@ import argparse
 import ming_fileio_library
 import ming_mass_spec_library
 import ming_spectrum_library
+import proteosafe
+
+
 from collections import defaultdict
 import mass_from_structure
 import inchi_smile_converter
-import proteosafe
 
 
 def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, proteosafe_param):
@@ -31,6 +33,7 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
         for key, value in mangled_mapping.items():
             fn = value.split("/")[-1]
             reversed_mapping[fn]=key
+
     for filename in structures_by_filename:
         # if param exists => proteosafe workflow => demangle fileName
         path_to_spectrum_file = os.path.join(path_to_spectrum_files, filename)
