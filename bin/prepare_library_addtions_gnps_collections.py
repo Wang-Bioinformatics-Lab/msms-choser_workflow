@@ -16,7 +16,7 @@ import mass_from_structure
 import inchi_smile_converter
 
 
-def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, proteosafe_param):
+def process_candidate_molecules(candidate_molecules, path_to_spectrum_files):
     #Grouping by filename
     structures_by_filename = defaultdict(list)
 
@@ -25,28 +25,11 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
         structures_by_filename[filename].append(candidate_object)
 
     output_dict = defaultdict(list)
-    #Demangle
-    if proteosafe_param:
-        workflow_params = proteosafe.parse_xml_file(proteosafe_param)
-        mangled_mapping = proteosafe.get_mangled_file_mapping(workflow_params)
-        reversed_mapping = {}
-        for key, value in mangled_mapping.items():
-            fn = value.split("/")[-1]
-            reversed_mapping[fn]=key
 
     for filename in structures_by_filename:
         # if param exists => proteosafe workflow => demangle fileName
         path_to_spectrum_file = os.path.join(path_to_spectrum_files, filename)
         displaying_filename = filename
-        if proteosafe_param:
-            #This produces the mangled name
-            path_to_spectrum_file = os.path.join(path_to_spectrum_files, reversed_mapping[filename])
-
-            #Try to resolve the full path
-            for key in mangled_mapping:
-                if displaying_filename in mangled_mapping[key]:
-                    displaying_filename = mangled_mapping[key]
-                    break
 
         #loading file
         spectrum_list = []
@@ -77,8 +60,6 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, pro
 
                 #evaluate candidate_object
                 monoisotopic_mass = structure_object["monoisotopic_mass"]
-                
-                #print(spectrum.mz, monoisotopic_mass)
 
                 mz_delta = abs(spectrum.mz - monoisotopic_mass)
                 ppm_delta = (mz_delta / monoisotopic_mass ) * 1000000
@@ -132,7 +113,6 @@ def main():
     parser.add_argument("input_annotations")
     parser.add_argument("path_to_spectra")
     parser.add_argument("output_batch")
-    parser.add_argument("-proteosafe_param")
     parser.add_argument("--ppm_tolerance", type=float, default=10.0)
 
     args = parser.parse_args()
@@ -186,7 +166,7 @@ def main():
         #charge = 1
         #print(ionmode)
         if ionmode == "Positive":
-            adduct_list = ["M+H", "M-H2O+H", "2M+Na", "M+Na", "M-2H2O+H", "2M+H", "M+K", "2M+K"]
+            adduct_list = ["M", "M+H", "M-H2O+H", "2M+Na", "M+Na", "M-2H2O+H", "2M+H", "M+K", "2M+K"]
         else:
             adduct_list = ["M-H", "2M-H","2M-2H+Na"]
 
@@ -217,7 +197,7 @@ def main():
 
             candidate_molecules.append(candidate_object)
 
-    output_dict = process_candidate_molecules(candidate_molecules, args.path_to_spectra, args.proteosafe_param)
+    output_dict = process_candidate_molecules(candidate_molecules, args.path_to_spectra)
     header_list = ["FILENAME", "SEQ", "COMPOUND_NAME", "MOLECULEMASS", "INSTRUMENT", "IONSOURCE", "EXTRACTSCAN", "SMILES", "INCHI", "INCHIAUX"]
     header_list += ["CHARGE", "IONMODE", "PUBMED", "ACQUISITION", "EXACTMASS", "DATACOLLECTOR", "ADDUCT", "INTEREST", "LIBQUALITY", "GENUS", "SPECIES", "STRAIN", "CASNUMBER", "PI"]
 
