@@ -19,6 +19,7 @@ process processCandidates {
     input:
     path annotations
     path path_to_spectra
+    path path_to_params
     
     output:
     path "batchfile.tsv"
@@ -28,14 +29,16 @@ process processCandidates {
     python $TOOL_FOLDER/prepare_library_addtions_gnps_collections.py \
     $annotations $path_to_spectra \
     batchfile.tsv \
-    --ppm_tolerance $params.ppm_tolerance
+    --ppm_tolerance $params.ppm_tolerance \
+    --task_params $path_to_params
     """
 }
 
 
 workflow{
+    parameters_ch = Channel.fromPath(params.OMETAPARAM_YAML) 
     annotations_ch = Channel.fromPath(params.annotations) 
     spectra_folder_ch = Channel.fromPath(params.path_to_spectra) 
 
-    processCandidates(annotations_ch, spectra_folder_ch)
+    processCandidates(annotations_ch, spectra_folder_ch, parameters_ch)
 }
