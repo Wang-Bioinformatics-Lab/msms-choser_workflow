@@ -14,17 +14,34 @@ import proteosafe
 from collections import defaultdict
 import mass_from_structure
 import inchi_smile_converter
-
+import yaml
 
 
 # get taskid form task_params file
-def getTaskId(filename):
-    with open(filename, 'r') as file:
-        for line in file:
+#def getTaskId(filename):
+#    with open(filename, 'r') as file:
+#        for line in file:
             # Check if the line starts with the specified prefix
-            if line.startswith("task:"):
+#            if line.startswith("task:"):
                 # Extract the part after ":" and return
-                return line.split(':', 1)[1].strip()
+#                return line.split(':', 1)[1].strip()
+
+# get taskid from job_parameters.yaml file
+def getTaskId(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = yaml.safe_load(file)
+            # Check if 'task' field exists in the YAML data
+            if 'task' in data:
+                return data['task']
+            else:
+                return None
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+        return None
+    except yaml.YAMLError as e:
+        print(f"Error parsing YAML file: {e}")
+        return None
 
 def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, taskid):
     #Grouping by filename
