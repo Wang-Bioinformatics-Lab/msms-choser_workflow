@@ -10,6 +10,8 @@ Views:
         columns:
             -   title: "View"
                 data: ""
+            -   title: "USI"
+                data: USI
             -   title: "filename"
                 data: FILENAME
             -   title: "Molecule mass"
@@ -24,12 +26,14 @@ Views:
                 data: ADDUCT
             -   title: "SMILES"
                 data: SMILES
+            -   title: "Structure"
+                data: 
         columnDefs: '[ 
             {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
         return `
             <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-spectra/${row["FILENAME"]}:scan:${row["EXTRACTSCAN"]}">View Spectrum</a>
         `;}},
-        {"targets": 7,"data": null,"render": function ( data, type, row, meta ) {
+        {"targets": 9,"data": null,"render": function ( data, type, row, meta ) {
         return `
             <img src="https://structure.gnps2.org/structureimg?smiles=${row["SMILES"]}"/>
         `;}},
