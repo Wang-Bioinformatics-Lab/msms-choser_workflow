@@ -12,3 +12,4 @@ dependencies:
     - pyteomics
     - requests
     - lxml
+    - pyyaml

@@ -14,9 +14,36 @@ import proteosafe
 from collections import defaultdict
 import mass_from_structure
 import inchi_smile_converter
+import yaml
 
 
-def process_candidate_molecules(candidate_molecules, path_to_spectrum_files):
+# get taskid form task_params file
+#def getTaskId(filename):
+#    with open(filename, 'r') as file:
+#        for line in file:
+            # Check if the line starts with the specified prefix
+#            if line.startswith("task:"):
+                # Extract the part after ":" and return
+#                return line.split(':', 1)[1].strip()
+
+# get taskid from job_parameters.yaml file
+def getTaskId(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = yaml.safe_load(file)
+            # Check if 'task' field exists in the YAML data
+            if 'task' in data:
+                return data['task']
+            else:
+                return None
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+        return None
+    except yaml.YAMLError as e:
+        print(f"Error parsing YAML file: {e}")
+        return None
+
+def process_candidate_molecules(candidate_molecules, path_to_spectrum_files, taskid):
     #Grouping by filename
     structures_by_filename = defaultdict(list)
 
@@ -75,6 +102,8 @@ def process_candidate_molecules(candidate_molecules, path_to_spectrum_files):
                 #print(structure_object["monoisotopic_mass"],candidate_object["monoisotopic_mass"])
                 #output_dict["FILENAME"].append(os.path.basename(filename))
                 output_dict["FILENAME"].append(displaying_filename)
+                #usi = "mzspec:GNPS2:TASK-" + taskid + path_to_spectrum_file + ":scan:"+ str(best_spectrum.scan) 
+                output_dict["USI"].append("mzspec:GNPS2:TASK-" + taskid + "-" + path_to_spectrum_file + ":scan:"+ str(best_spectrum.scan))
                 output_dict["SEQ"].append("*.*")
                 output_dict["COMPOUND_NAME"].append(structure_object["name"])
                 output_dict["MOLECULEMASS"].append(structure_object["monoisotopic_mass"])
@@ -113,9 +142,16 @@ def main():
     parser.add_argument("input_annotations")
     parser.add_argument("path_to_spectra")
     parser.add_argument("output_batch")
+    #parser.add_argument("task")
     parser.add_argument("--ppm_tolerance", type=float, default=10.0)
+    parser.add_argument("--task_params")
+    #parser.add_argument("task")
 
     args = parser.parse_args()
+
+    taskid = getTaskId(args.task_params)
+    #taskid = args.task
+
     # c engine error
     annotations_df = pd.read_csv(args.input_annotations, sep="\t")
         
@@ -197,8 +233,9 @@ def main():
 
             candidate_molecules.append(candidate_object)
 
-    output_dict = process_candidate_molecules(candidate_molecules, args.path_to_spectra)
-    header_list = ["FILENAME", "SEQ", "COMPOUND_NAME", "MOLECULEMASS", "INSTRUMENT", "IONSOURCE", "EXTRACTSCAN", "SMILES", "INCHI", "INCHIAUX"]
+    #output_dict = process_candidate_molecules(candidate_molecules, args.path_to_spectra)
+    output_dict = process_candidate_molecules(candidate_molecules, args.path_to_spectra, taskid)
+    header_list = ["USI", "FILENAME", "SEQ", "COMPOUND_NAME", "MOLECULEMASS", "INSTRUMENT", "IONSOURCE", "EXTRACTSCAN", "SMILES", "INCHI", "INCHIAUX"]
     header_list += ["CHARGE", "IONMODE", "PUBMED", "ACQUISITION", "EXACTMASS", "DATACOLLECTOR", "ADDUCT", "INTEREST", "LIBQUALITY", "GENUS", "SPECIES", "STRAIN", "CASNUMBER", "PI"]
 
     df = pd.DataFrame(output_dict)
