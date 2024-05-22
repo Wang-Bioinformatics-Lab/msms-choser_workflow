@@ -38,3 +38,17 @@ Views:
             <img src="https://structure.gnps2.org/structureimg?smiles=${row["SMILES"]}"/>
         `;}},
         ]'
+
+# Creating linkout to actually create private lib
+-   name: Downstream - Create Library (Beta)
+    displayname: Downstream - Create Library (Beta)
+    viewname: downstreamworkflow
+    displaytype: linkout
+    parameters:
+        baseurl: /workflowinput
+        urlparam:
+            -   workflowname:create_gnps2_libraries_workflow
+        hashparam:
+            -   input_batch_annotation:TASKLOCATION/[task]/nf_output/new_library.mgf
+            -   input_spectra:[@path_to_spectra]
+            -   description:Downstream from [task] MSMS Chooser
