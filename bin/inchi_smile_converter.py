@@ -7,6 +7,7 @@ import urllib.parse
 # this is used to query inchi, smiles using Ming's web api
 def inchi2smiles (inchi):
     url = "https://structure.gnps2.org/smiles?inchi={}".format(urllib.parse.quote(inchi))
+    response = requests.get(url)
     if response.status_code !=200 :
         #print(response.text)
         print(url)
