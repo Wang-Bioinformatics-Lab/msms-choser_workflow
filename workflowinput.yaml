@@ -1,7 +1,7 @@
 workflowname: msms_choser_nextflow_workflow
 workflowdescription: msms_choser_nextflow_workflow
 workflowlongdescription: This is the workflow to run msms-chooser from nextflow. The input of msms-choser is a tsv with the potential annotations and their spectrum libraries. Please visit the GNPS2 documentation  at https://github.com/Wang-Bioinformatics-Lab/GNPS2_Documentation/tree/master/docs/workflowindex.md for more information.
-workflowversion: "2024.05.21"
+workflowversion: "2025.06.16"
 workflowfile: nf_workflow.nf
 workflowautohide: false
 adminonly: false

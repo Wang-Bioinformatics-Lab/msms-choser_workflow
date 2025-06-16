@@ -153,7 +153,7 @@ def main():
     #taskid = args.task
 
     # c engine error
-    annotations_df = pd.read_csv(args.input_annotations, sep="\t")
+    annotations_df = pd.read_csv(args.input_annotations, sep=None)
         
     annotation_records = annotations_df.to_dict(orient="records")
     candidate_molecules = []
