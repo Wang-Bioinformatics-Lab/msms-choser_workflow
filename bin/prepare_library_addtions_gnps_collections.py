@@ -152,7 +152,7 @@ def main():
     taskid = getTaskId(args.task_params)
     #taskid = args.task
 
-    # c engine error
+    # accepts both now
     annotations_df = pd.read_csv(args.input_annotations, sep=None)
         
     annotation_records = annotations_df.to_dict(orient="records")
