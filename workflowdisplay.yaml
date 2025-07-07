@@ -50,5 +50,5 @@ Views:
             -   workflowname:create_gnps2_libraries_workflow
         hashparam:
             -   input_batch_annotation:TASKLOCATION/[task]/nf_output/batchfile.tsv
-            -   input_spectra:[@path_to_spectra]
+            -   input_spectra:TASKLOCATION/[task]/spectra
             -   description:Downstream from [task] MSMS Chooser
