@@ -32,6 +32,8 @@ Views:
             {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
             return `
                 <a target="_blank" href="https://metabolomics-usi.gnps2.org/dashinterface/?usi1=mzspec:GNPS2:TASK-${task}-spectra/${row["FILENAME"]}:scan:${row["EXTRACTSCAN"]}">View Spectrum</a>
+                <br>
+                <a target="_blank" href="https://dashboard.gnps2.org/?usi=mzspec:GNPS2:TASK-${task}-spectra/${row["FILENAME"]}">View LCMS Run</a>
             `;}},
             {"targets": 9,"data": null,"render": function ( data, type, row, meta ) {
             return `
